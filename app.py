@@ -11,13 +11,21 @@ def get_base64(uuid):
     try:
         data = ''
 
-        # 检查premiun_list文件是否存在
+        # 检查UUID是否在premium_list.txt或normal_list.txt文件中
         is_premium = False
+        is_normal = False
         if os.path.exists('./data/premium_list.txt'):
-            # 检查UUID是否在premiun_list文件中
             with open('./data/premium_list.txt', 'r') as f:
-                premiun_list = f.read().splitlines()
-            is_premium = uuid in premiun_list
+                premium_list = f.read().splitlines()
+            is_premium = uuid in premium_list
+        if os.path.exists('./data/normal_list.txt'):
+            with open('./data/normal_list.txt', 'r') as f:
+                normal_list = f.read().splitlines()
+            is_normal = uuid in normal_list
+
+        # 如果UUID不在premium_list.txt或normal_list.txt文件中，返回404错误
+        if not is_premium and not is_normal:
+            return Response('UUID not found.', status=404)
 
         # 如果UUID在premiun_list文件中，还读取config_premium.txt文件
         if is_premium:

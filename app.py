@@ -8,11 +8,15 @@ app = Flask(__name__)
 def get_base64(uuid):
     try:
         # 根据UUID读取文件
-        with open(f'./data/{uuid}.txt', 'rb') as f:
+        with open(f'./data/config.txt', 'r') as f:
             data = f.read()
 
+        # 替换默认的UUID
+        default_uuid = '620436f3-3104-48c4-a41d-3d19e72b9605'
+        data = data.replace(default_uuid, uuid)
+
         # 转换为base64
-        encoded_data = base64.b64encode(data).decode('utf-8')
+        encoded_data = base64.b64encode(data.encode()).decode()
 
         # 返回base64编码的数据
         return Response(encoded_data, mimetype='text/plain')

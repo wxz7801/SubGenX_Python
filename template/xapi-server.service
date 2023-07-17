@@ -1,0 +1,12 @@
+[Unit]
+Description=Your App Name
+After=network.target
+
+[Service]
+User=yourusername
+WorkingDirectory=/path/to/your/app
+Environment="PATH=/path/to/your/venv/bin"
+ExecStart=/path/to/your/venv/bin/gunicorn -b localhost:5000 myapp:app
+
+[Install]
+WantedBy=multi-user.target

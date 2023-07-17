@@ -9,8 +9,6 @@ python app.py
 ```
 If you want to use it in production, you can use gunicorn to run it.
 
-```bash
-
 ## requirements
 
 * flask

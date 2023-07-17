@@ -25,7 +25,7 @@ def get_base64(uuid):
 
         # 如果UUID不在premium_list.txt或normal_list.txt文件中，返回404错误
         if not is_premium and not is_normal:
-            return Response('UUID not found.', status=404)
+            return Response('Not valid user.', status=404)
 
         # 如果UUID在premiun_list文件中，还读取config_premium.txt文件
         if is_premium:

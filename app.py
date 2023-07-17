@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, Response
 import base64
 
@@ -11,10 +13,13 @@ def get_base64(uuid):
         with open('./data/config.txt', 'r') as f:
             data = f.read()
 
-        # 检查UUID是否在premiun_list文件中
-        with open('./data/premium_list.txt', 'r') as f:
-            premiun_list = f.read().splitlines()
-        is_premium = uuid in premiun_list
+        # 检查premiun_list文件是否存在
+        is_premium = False
+        if os.path.exists('./data/premium_list.txt'):
+            # 检查UUID是否在premiun_list文件中
+            with open('./data/premium_list.txt', 'r') as f:
+                premiun_list = f.read().splitlines()
+            is_premium = uuid in premiun_list
 
         # 如果UUID在premiun_list文件中，还读取config_premium.txt文件
         if is_premium:

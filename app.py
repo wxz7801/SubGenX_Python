@@ -9,9 +9,7 @@ app = Flask(__name__)
 @app.route('/api/<uuid>', methods=['GET'])
 def get_base64(uuid):
     try:
-        # 读取config.txt文件
-        with open('./data/config.txt', 'r') as f:
-            data = f.read()
+        data = ''
 
         # 检查premiun_list文件是否存在
         is_premium = False
@@ -25,6 +23,10 @@ def get_base64(uuid):
         if is_premium:
             with open('./data/config_premium.txt', 'r') as f:
                 data += f.read()
+
+        # 读取config.txt文件
+        with open('./data/config.txt', 'r') as f:
+            data += f.read()
 
         # 替换默认的UUID
         default_uuid = '620436f3-3104-48c4-a41d-3d19e72b9605'
